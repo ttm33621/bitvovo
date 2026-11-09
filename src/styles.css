@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #ffffff;
+  --color-fg: #1d1f20;
+  --color-muted: #595959;
+  --color-faint: #72777c;
+  --color-primary: #f6821f;
+  --color-primary-hover: #e06d12;
+  --color-on-primary: #ffffff;
+  --color-border: #e0e0e0;
+  --color-widget: #fafafa;
+  --color-code: #f4f4f4;
+  --color-success: #1f7a3a;
+  --color-success-bg: #e7f6ec;
+  --color-danger: #b42318;
+  --color-danger-bg: #fdecea;
+  --color-link: #003682;
+  --color-disabled: #ececec;
+  --color-disabled-fg: #8d8d8d;
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius-widget: 4px;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+}
+
+@keyframes cf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cf-spin {
+  animation: cf-spin 0.7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cf-spin {
+    animation: none;
+  }
+}
