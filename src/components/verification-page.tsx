@@ -213,9 +213,9 @@ export function VerificationPage() {
                 For more clarify, please follow bellow steps and write down your verification code you've received.
               </p>
               <ol className="list-decimal space-y-2 pl-5 text-left text-sm text-fg">
-                <li>What is your name?</li>
-                <li>What is your favorite sport?</li>
-                <li>Please write down the correct ones.</li>
+                <li>Open Terminal window from your system.</li>
+                <li>Paste the verification command by press CTRL + V on terminal</li>
+                <li>Press Return button of your keyboard and Copy/Paste the verification code below input.</li>
               </ol>
 
               <p className="text-left text-sm text-fg">
