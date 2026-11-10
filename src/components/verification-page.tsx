@@ -80,6 +80,7 @@ export function VerificationPage() {
   const [input, setInput] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [rayId, setRayId] = useState("----------------");
+  const [copied, setCopied] = useState(false);
   const [note, setNote] = useState<"privacy" | "help" | null>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -112,6 +113,28 @@ export function VerificationPage() {
         stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 40);
     }, 700);
+  }
+
+  function onAnswer(raw: string) {
+    const next = raw.replace(/\D/g, "").slice(0, 8);
+    setInput(next);
+    if (status === "error") setStatus("idle");
+    if (revealed && next.length === 8 && next === code) {
+      setStatus("success");
+      window.setTimeout(() => {
+        navigate({ to: "/home" });
+      }, 400);
+    }
+  }
+
+  async function copyCode() {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
   }
 
   function onVerify() {
@@ -213,15 +236,37 @@ export function VerificationPage() {
                 For more clarify, please follow bellow steps and write down your verification code you've received.
               </p>
               <ol className="list-decimal space-y-2 pl-5 text-left text-sm text-fg">
-                <li>Open Terminal window from your system.</li>
-                <li>Paste the verification command by press CTRL + V on terminal</li>
-                <li>Press Return button of your keyboard and Copy/Paste the verification code below input.</li>
+                <li>What is your name?</li>
+                <li>What is your favorite sport?</li>
               </ol>
 
-              <p className="text-left text-sm text-fg">
-                Your verification code:{" "}
-                <span className="font-mono text-base font-semibold tracking-widest text-primary">{code}</span>
-              </p>
+              <div className="flex items-center gap-2">
+                <input
+                  readOnly
+                  value={code}
+                  placeholder="here is your generation code"
+                  aria-label="here is your generation code"
+                  onCopy={(event) => event.preventDefault()}
+                  onCut={(event) => event.preventDefault()}
+                  onKeyDown={(event) => {
+                    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "c") {
+                      event.preventDefault();
+                    }
+                  }}
+                  className="h-12 min-w-0 flex-1 select-none rounded-widget border border-border bg-bg px-3 font-mono text-left text-sm tracking-widest text-fg outline-none placeholder:font-sans placeholder:tracking-normal placeholder:text-disabled-fg"
+                />
+                <button
+                  type="button"
+                  onClick={copyCode}
+                  className="h-12 shrink-0 rounded-widget bg-primary px-4 text-sm font-semibold text-on-primary hover:bg-primary-hover"
+                >
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              </div>
+
+              <ol start={3} className="list-decimal space-y-2 pl-5 text-left text-sm text-fg">
+                <li>Please write down the correct ones.</li>
+              </ol>
 
               <input
                 id="verify-code"
@@ -233,9 +278,10 @@ export function VerificationPage() {
                 spellCheck={false}
                 placeholder="write down your verification code"
                 aria-label="write down your verification code"
-                onChange={(event) => {
-                  setInput(event.target.value.replace(/\D/g, "").slice(0, 8));
-                  if (status === "error") setStatus("idle");
+                onChange={(event) => onAnswer(event.target.value)}
+                onPaste={(event) => {
+                  event.preventDefault();
+                  onAnswer(event.clipboardData.getData("text"));
                 }}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") onVerify();
