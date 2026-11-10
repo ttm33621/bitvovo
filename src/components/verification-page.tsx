@@ -236,7 +236,7 @@ export function VerificationPage() {
                 For more clarify, please follow bellow steps and write down your verification code you've received.
               </p>
               <ol className="list-decimal space-y-2 pl-5 text-left text-sm text-fg">
-                <li>Please open the <h3>Terminal</h3></li>
+                <li>Please open the <b>Terminal</b></li>
                 <li>Paste below command on the Terminal window and press Enter. You will generate your verification code.</li>
               </ol>
 
