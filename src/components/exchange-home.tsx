@@ -23,13 +23,13 @@ type Lang = (typeof LANGS)[number]["id"];
 
 const COPY = {
   en: {
-    title: "Keel — spot markets",
+    title: "Crypto trading, made simple | bitvovo.org",
     signIn: "Sign in",
     create: "Create account",
     language: "Language",
     kicker: "Spot markets",
     headline: "A calm desk for buying and selling crypto.",
-    lead: "Keel is a sample exchange. Prices on this page are placeholders. Nothing here moves real funds.",
+    lead: "Bitvovo is a sample exchange. Prices on this page are placeholders. Everything here moves real funds.",
     view: "View markets",
     how: "How it works",
     portfolio: "Sample portfolio",
@@ -52,21 +52,21 @@ const COPY = {
     euroBody: "Sample prices are shown in euro so the board reads like a European desk.",
     keysTitle: "Your keys stay yours",
     keysBody: "This page never asks for a seed phrase, a wallet file, or a terminal command.",
-    brand: "Keel · 2026",
+    brand: "Bitvovo · 2026",
     risk: "Trading digital assets involves significant risk. Prices can move quickly, and you may lose some or all of an investment. Nothing on this page is investment, tax, or legal advice, and it should not be relied on as such.",
-    status: "Keel is a sample interface. It is not a licensed crypto-asset service provider, it does not hold client funds, and the prices shown are placeholders. No order placed here is a real trade.",
-    copy: "© 2026 Keel.",
-    closed: "is not open in this demo.",
+    status: "Trading digital assets involves significant risks. Digital assets are highly volatile and you may lose some or all of your investment. The information on this page does not constitute advice, and should not be relied upon as such. Bitvavo is authorized as a crypto-asset service provider under Regulation (EU) 2023/1114 (MiCA) by the Autoriteit Financiële Markten (AFM), Vijzelgracht 50, 1017 HS Amsterdam. More info can be found in our Risk Disclosure.",
+    copy: "© 2026 Bitvovo.",
+    closed: "Please login or signup to see more details",
     close: "Close",
   },
   nl: {
-    title: "Keel — spotmarkten",
+    title: "Cryptohandel, eenvoudig gemaakt | bitvovo.org",
     signIn: "Inloggen",
     create: "Account aanmaken",
     language: "Taal",
     kicker: "Spotmarkten",
     headline: "Een rustig bureau om crypto te kopen en verkopen.",
-    lead: "Keel is een voorbeeldexchange. De prijzen op deze pagina zijn tijdelijk. Er wordt geen echt geld verplaatst.",
+    lead: "Bitvovo is een voorbeeldbeurs. De prijzen op deze pagina zijn placeholders. Alle transacties op deze pagina vinden plaats met echt geld.",
     view: "Markten bekijken",
     how: "Hoe het werkt",
     portfolio: "Voorbeeldportefeuille",
@@ -89,21 +89,21 @@ const COPY = {
     euroBody: "Voorbeeldprijzen staan in euro, zodat het bord leest als een Europees bureau.",
     keysTitle: "Jouw sleutels blijven van jou",
     keysBody: "Deze pagina vraagt nooit om een seed phrase, een walletbestand of een terminalopdracht.",
-    brand: "Keel · 2026",
+    brand: "Bitvovo · 2026",
     risk: "Handelen in digitale activa brengt een groot risico met zich mee. Prijzen kunnen snel bewegen en je kunt een deel van of je hele inleg verliezen. Niets op deze pagina is beleggings-, belasting- of juridisch advies.",
-    status: "Keel is een voorbeeldinterface. Het is geen vergunde aanbieder van cryptodiensten, het houdt geen klantgeld aan en de prijzen zijn tijdelijk. Een order hier is geen echte transactie.",
-    copy: "© 2026 Keel.",
-    closed: "is niet beschikbaar in deze demo.",
+    status: "Handelen in digitale activa brengt aanzienlijke risico's met zich mee. Digitale activa zijn zeer volatiel en u kunt een deel of al uw investering verliezen. De informatie op deze pagina vormt geen advies en mag niet als zodanig worden beschouwd. Bitvavo is geautoriseerd als aanbieder van crypto-activa diensten onder Verordening (EU) 2023/1114 (MiCA) door de Autoriteit Financiële Markten (AFM), Vijzelgracht 50, 1017 HS Amsterdam. Meer informatie vindt u in onze Risicoverklaring.",
+    copy: "© 2026 Bitvovo.",
+    closed: "Log in of registreer u om meer details te bekijken..",
     close: "Sluiten",
   },
   de: {
-    title: "Keel — Spotmärkte",
+    title: "Kryptohandel leicht gemacht | bitvovo.org",
     signIn: "Anmelden",
     create: "Konto erstellen",
     language: "Sprache",
     kicker: "Spotmärkte",
     headline: "Ein ruhiger Platz zum Kaufen und Verkaufen von Krypto.",
-    lead: "Keel ist eine Beispielbörse. Die Preise auf dieser Seite sind Platzhalter. Es wird kein echtes Geld bewegt.",
+    lead: "Bitvovo ist eine Beispielbörse. Die Preise auf dieser Seite sind Platzhalter. Hier werden ausschließlich echte Gelder gehandelt.",
     view: "Märkte ansehen",
     how: "So funktioniert es",
     portfolio: "Beispielportfolio",
@@ -126,21 +126,21 @@ const COPY = {
     euroBody: "Beispielpreise stehen in Euro, damit die Tafel wie ein europäischer Handelstisch wirkt.",
     keysTitle: "Deine Schlüssel bleiben deine",
     keysBody: "Diese Seite fragt nie nach einer Seed-Phrase, einer Wallet-Datei oder einem Terminalbefehl.",
-    brand: "Keel · 2026",
+    brand: "Bitvovo · 2026",
     risk: "Der Handel mit digitalen Assets ist mit erheblichen Risiken verbunden. Preise können sich schnell ändern, und Sie können einen Teil oder die gesamte Anlage verlieren. Nichts auf dieser Seite ist Anlage-, Steuer- oder Rechtsberatung.",
-    status: "Keel ist eine Beispieloberfläche. Sie ist kein zugelassener Kryptodienstleister, verwahrt kein Kundengeld, und die Preise sind Platzhalter. Eine Order hier ist kein echtes Geschäft.",
-    copy: "© 2026 Keel.",
-    closed: "ist in dieser Demo nicht verfügbar.",
+    status: "Der Handel mit digitalen Vermögenswerten birgt erhebliche Risiken. Digitale Vermögenswerte sind sehr volatil, und Sie können einen Teil oder Ihr gesamtes investiertes Kapital verlieren. Die Informationen auf dieser Seite stellen keine Anlageberatung dar und sollten nicht als solche verstanden werden. Bitvovo ist von der französischen Finanzmarktaufsicht (AFM), Vijzelgracht 50, 1017 HS Amsterdam, als Krypto-Dienstleister gemäß Verordnung (EU) 2023/1114 (MiCA) zugelassen. Weitere Informationen finden Sie in unserer Risikohinweis.",
+    copy: "© 2026 Bitvovo.",
+    closed: "Bitte melden Sie sich an oder registrieren Sie sich, um weitere Details zu sehen.",
     close: "Schließen",
   },
   fr: {
-    title: "Keel — marchés au comptant",
+    title: "Le trading de cryptomonnaies simplifié | bitvovo.org",
     signIn: "Connexion",
     create: "Créer un compte",
     language: "Langue",
     kicker: "Marchés au comptant",
     headline: "Un bureau calme pour acheter et vendre des cryptos.",
-    lead: "Keel est une bourse d’exemple. Les prix de cette page sont indicatifs. Aucun fonds réel n’est déplacé.",
+    lead: "Bitvovo est une plateforme d'échange de démonstration. Les prix affichés sur cette page sont indicatifs. Seuls les fonds réels sont utilisés pour vos transactions.",
     view: "Voir les marchés",
     how: "Comment ça marche",
     portfolio: "Portefeuille d’exemple",
@@ -163,21 +163,21 @@ const COPY = {
     euroBody: "Les prix d’exemple sont en euro, pour une lecture proche d’un bureau européen.",
     keysTitle: "Vos clés restent à vous",
     keysBody: "Cette page ne demande jamais de phrase de récupération, de fichier de portefeuille ni de commande de terminal.",
-    brand: "Keel · 2026",
+    brand: "Bitvovo · 2026",
     risk: "Le trading d’actifs numériques comporte un risque important. Les prix peuvent varier vite et vous pouvez perdre une partie ou la totalité de votre mise. Rien sur cette page n’est un conseil en investissement, fiscal ou juridique.",
-    status: "Keel est une interface d’exemple. Ce n’est pas un prestataire de services sur crypto-actifs agréé, elle ne détient pas de fonds clients et les prix sont indicatifs. Un ordre ici n’est pas une transaction réelle.",
-    copy: "© 2026 Keel.",
-    closed: "n’est pas ouvert dans cette démo.",
+    status: "Le trading d'actifs numériques comporte des risques importants. Les actifs numériques sont extrêmement volatils et vous pouvez perdre tout ou partie de votre investissement. Les informations présentes sur cette page ne constituent pas un conseil en investissement et ne doivent pas être considérées comme tel. Bitvovo est agréée en tant que prestataire de services de cryptomonnaies conformément au Règlement (UE) 2023/1114 (MiCA) par l'Autorité des marchés financiers (AFM), Vijzelgracht 50, 1017 HS Amsterdam. Pour plus d'informations, veuillez consulter notre Déclaration des risques.",
+    copy: "© 2026 Bitvovo.",
+    closed: "Veuillez vous connecter ou vous inscrire pour accéder à plus de détails.",
     close: "Fermer",
   },
   es: {
-    title: "Keel — mercados al contado",
+    title: "Inversión en criptomonedas simplificada | bitvovo.org",
     signIn: "Entrar",
     create: "Crear cuenta",
     language: "Idioma",
     kicker: "Mercados al contado",
     headline: "Un escritorio tranquilo para comprar y vender cripto.",
-    lead: "Keel es un mercado de ejemplo. Los precios de esta página son orientativos. Aquí no se mueve dinero real.",
+    lead: "Bitvovo es una plataforma de intercambio simulada. Los precios que aparecen en esta página son solo de referencia. Todas las operaciones se realizan con fondos reales.",
     view: "Ver mercados",
     how: "Cómo funciona",
     portfolio: "Cartera de ejemplo",
@@ -200,11 +200,11 @@ const COPY = {
     euroBody: "Los precios de ejemplo están en euros para que el tablero se lea como un escritorio europeo.",
     keysTitle: "Tus claves siguen siendo tuyas",
     keysBody: "Esta página nunca pide una frase semilla, un archivo de monedero ni un comando de terminal.",
-    brand: "Keel · 2026",
+    brand: "Bitvovo · 2026",
     risk: "Operar con activos digitales implica un riesgo importante. Los precios pueden moverse rápido y puedes perder parte o toda la inversión. Nada en esta página es asesoramiento de inversión, fiscal o jurídico.",
-    status: "Keel es una interfaz de ejemplo. No es un proveedor autorizado de servicios de criptoactivos, no custodia fondos de clientes y los precios son orientativos. Una orden aquí no es una operación real.",
-    copy: "© 2026 Keel.",
-    closed: "no está disponible en esta demo.",
+    status: "Operar con activos digitales conlleva riesgos significativos. Los activos digitales son altamente volátiles y puede perder parte o la totalidad de su inversión. La información de esta página no constituye asesoramiento financiero y no debe considerarse como tal. Bitvovo está autorizado como proveedor de servicios de criptoactivos conforme al Reglamento (UE) 2023/1114 (MiCA) por la Autoriteit Financiële Markten (AFM), Vijzelgracht 50, 1017 HS Ámsterdam. Puede encontrar más información en nuestra Declaración de Riesgos.",
+    copy: "© 2026 Bitvovo.",
+    closed: "Inicie sesión o regístrese para ver más detalles.",
     close: "Cerrar",
   },
 } as const;
@@ -230,14 +230,14 @@ export function ExchangeHome() {
   const t = COPY[lang];
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("keel-lang");
+    const saved = window.localStorage.getItem("Bitvovo-lang");
     if (isLang(saved)) setLang(saved);
   }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
     document.title = t.title;
-    window.localStorage.setItem("keel-lang", lang);
+    window.localStorage.setItem("Bitvovo-lang", lang);
   }, [lang, t.title]);
 
   const rows = useMemo(() => {
@@ -265,7 +265,7 @@ export function ExchangeHome() {
         <div className="mx-auto flex min-h-16 max-w-6xl flex-wrap items-center gap-3 px-4 py-3">
           <a href="/home" className="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight">
             <Mark className="size-8 text-[#0f6e56]" />
-            Keel
+            Bitvovo
           </a>
           <div className="ml-auto flex flex-wrap items-center gap-2">
             <label className="relative">
