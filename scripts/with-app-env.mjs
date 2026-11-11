@@ -104,6 +104,13 @@ export function isMainModule(moduleUrl) {
   }
 }
 
+/** Quote one argv token for `cmd.exe /c`. */
+function quoteCmdArg(value) {
+  if (value.length === 0) return '""';
+  if (!/[\s"&|<>^%]/.test(value)) return value;
+  return `"${value.replace(/"/g, '""')}"`;
+}
+
 function main(argv) {
   const [command, ...args] = argv;
   if (!command) {
@@ -111,7 +118,17 @@ function main(argv) {
     process.exit(2);
   }
   const env = mergeAppEnv(readAppEnv(projectRoot()), process.env);
-  const child = spawn(command, args, { stdio: "inherit", env });
+  // Windows npm bins are *.cmd shims. spawn() only resolves *.exe, so `vite`
+  // from the npm scripts fails with ENOENT unless it goes through cmd.exe.
+  // Pass one command string: Node deprecates an args array together with shell.
+  const child =
+    process.platform === "win32"
+      ? spawn([command, ...args].map(quoteCmdArg).join(" "), {
+          stdio: "inherit",
+          env,
+          shell: true,
+        })
+      : spawn(command, args, { stdio: "inherit", env });
   // The dev server is long-running and is stopped by signalling this wrapper.
   for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
     process.on(signal, () => child.kill(signal));
