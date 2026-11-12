@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Clear, fast, and easy to use.";
+const APP_NAME = "Crypto trading, made simple | bitvovo.org";
 const APP_DESCRIPTION = "With you wherever you swap.";
 
 export const Route = createRootRoute({

@@ -3,7 +3,7 @@ import { ExchangeHome } from "@/components/exchange-home";
 
 export const Route = createFileRoute("/home")({
   head: () => ({
-    meta: [{ title: "Keel — spot markets" }],
+    meta: [{ title: "Bitvovo - Crypto Trading, made simple" }],
   }),
   component: ExchangeHome,
 });
