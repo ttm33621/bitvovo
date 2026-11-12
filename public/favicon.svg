@@ -1,6 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="92.992 223.675 373.116 59.243" class="mb-8 h-5 w-auto shrink-0 text-fg" aria-label="Logo" role="img" style="
-    width: 100px;
-">
-  <path fill="currentColor" d="M 123.668 230.701 L 144.469 230.701 L 113.758 282.178 L 92.992 282.178 Z"></path>
-  <path fill="currentColor" d="M 142.768 256.274 L 163.557 256.274 L 148.202 282.178 L 127.424 282.178 Z"></path>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 76">
+  <path fill="#0f172a" d="M 30.68 12.26 L 51.47 12.26 L 20.76 63.74 L 0 63.74 Z"/>
+  <path fill="#0f172a" d="M 49.78 37.84 L 70.56 37.84 L 55.21 63.74 L 34.43 63.74 Z"/>
 </svg>
